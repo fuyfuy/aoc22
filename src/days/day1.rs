@@ -1,9 +1,10 @@
 use std::{
     fs::File,
-    io::{BufRead, BufReader},
+    io::{BufRead, BufReader}, env,
 };
 pub fn run() {
-    let file = File::open(r"F:\projects\aoc22\inputs\inp1.txt").unwrap();
+    let input_dir = format!("{}{}", env::current_dir().unwrap().to_str().unwrap(), r"\inputs\inp1.txt");
+    let file = File::open(input_dir).unwrap();
     let reader = BufReader::new(file);
     let mut top1 = 0;
     let mut top2 = 0;
