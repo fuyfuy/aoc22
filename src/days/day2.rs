@@ -24,17 +24,17 @@ pub fn run() {
 }
 
 fn calculate_score_part1(round_items: (&str, &str)) -> i32 {
-    let opponent_item = OPP_LETTERS_TO_ITEMS.get(round_items.0).unwrap().clone();
+    let opponent_item = OPP_LETTERS_TO_ITEMS.get(round_items.0).unwrap();
     let hero_item = HERO_LETTERS_TO_ITEMS.get(round_items.1).unwrap().clone();
     let round = GameRound {
-        hero_item: &hero_item, opponent_item: &opponent_item
+        hero_item: &hero_item, opponent_item
     };
     fight(round) as i32 + hero_item as i32
 }
 
 fn calculate_score_part2(input_p2: (&str, &str)) -> i32 {
     let desired_result = LETTERS_TO_RESULT.get(input_p2.1).unwrap().clone();
-    let opp_item = OPP_LETTERS_TO_ITEMS.get(input_p2.0).unwrap().clone();
+    let opp_item = OPP_LETTERS_TO_ITEMS.get(input_p2.0).unwrap();
     let hero_item = find_item_by_result(opp_item, &desired_result);
     desired_result as i32 + hero_item as i32
 }
@@ -51,9 +51,9 @@ fn fight(round: GameRound) -> Result {
         _ => panic!(), }
 }
 
-fn find_item_by_result(opp_item: GameItem, desired_result: &Result) -> GameItem {
+fn find_item_by_result(opp_item: &GameItem, desired_result: &Result) -> GameItem {
     for item in GameItem::iter() {
-        let candidate_round = GameRound {hero_item: &item, opponent_item: &opp_item };
+        let candidate_round = GameRound {hero_item: &item, opponent_item: opp_item };
         if &fight(candidate_round) == desired_result {
             return item;
         }
