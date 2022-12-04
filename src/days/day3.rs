@@ -1,8 +1,7 @@
 use itertools::Itertools;
 use std::{ env, fs::File, io::{BufRead, BufReader}, collections::HashSet};
 
-pub fn run1() {
-    let reader = aoc22::read_file(3);
+pub fn run1(reader: BufReader<File>) {
     let mut sum = 0;
 
     for line in reader.lines() {
@@ -17,9 +16,8 @@ pub fn run1() {
     println!("{}", sum);
 }
 
-pub fn run2() {
+pub fn run2(reader: BufReader<File>) -> i32 {
    
-    let reader = aoc22::read_file(3);
     let chars: Vec<HashSet<char>> = reader
         .lines()
         .map(|l| l.unwrap().chars().collect::<HashSet<char>>())
@@ -45,10 +43,22 @@ pub fn run2() {
 
     }
     let sum: i32 = items.into_iter().map(get_char_priority).sum();
-    println!("{}", sum);
+    sum
 }
 
 fn get_char_priority(c: char) -> i32
 {
     if c.is_lowercase() { (c) as i32 - 96 } else { (c) as i32 - 38 }
+}
+
+#[cfg(test)]
+mod tests
+{
+    use super::*;
+    #[test]
+    fn run2_test()
+    {
+        let result = run2(aoc22::read_file("example", 3));
+        assert_eq!(result, 70);
+    }
 }

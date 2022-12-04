@@ -2,9 +2,7 @@ use itertools::Itertools;
 use std::{ env, fs::File, io::{BufRead, BufReader}, collections::HashSet};
 
 pub fn run1() {
-    let input_dir = format!( "{}{}", env::current_dir().unwrap().to_str().unwrap(), r"\inputs\inp3.txt");
-    let file = File::open(input_dir).unwrap();
-    let reader = BufReader::new(file); 
+    let reader = aoc22::read_file("inp", 4);
     let mut sum = 0;
 
     for line in reader.lines() {
